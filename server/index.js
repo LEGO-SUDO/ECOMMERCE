@@ -1,7 +1,11 @@
 import express from 'express'
 import dotenv from 'dotenv'
 import mongoose from 'mongoose'
-
+import authRoute from './routes/auth.js'
+import userRoute from './routes/user.js'
+import productRoute from './routes/product.js'
+import cartRoute from './routes/cart.js'
+import orderRoute from './routes/order.js'
 dotenv.config()
 
 const connect = () => {
@@ -20,6 +24,12 @@ const connect = () => {
 }
 
 const app = express()
+app.use(express.json())
+app.use('/api/auth', authRoute)
+app.use('/api/user', userRoute)
+app.use('/api/product', productRoute)
+app.use('/api/cart', cartRoute)
+app.use('/api/order', orderRoute)
 
 app.listen(process.env.PORT || 8080, () => {
   connect()
