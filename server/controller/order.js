@@ -1,5 +1,4 @@
 import Order from '../models/Order.js'
-import bcrypt from 'bcryptjs'
 
 export const createOrder = async (req, res, next) => {
   const newOrder = new Order(req.body)
