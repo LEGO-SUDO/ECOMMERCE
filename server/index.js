@@ -6,6 +6,8 @@ import userRoute from './routes/user.js'
 import productRoute from './routes/product.js'
 import cartRoute from './routes/cart.js'
 import orderRoute from './routes/order.js'
+import stripeRoute from './routes/stripe.js'
+import cors from 'cors'
 dotenv.config()
 
 const connect = () => {
@@ -24,12 +26,14 @@ const connect = () => {
 }
 
 const app = express()
+app.use(cors())
 app.use(express.json())
 app.use('/api/auth', authRoute)
 app.use('/api/user', userRoute)
 app.use('/api/product', productRoute)
 app.use('/api/cart', cartRoute)
 app.use('/api/order', orderRoute)
+app.use('/api/checkout', stripeRoute)
 
 app.listen(process.env.PORT || 8080, () => {
   connect()
