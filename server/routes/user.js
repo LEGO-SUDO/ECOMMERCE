@@ -1,17 +1,16 @@
-import express from 'express'
-import {
+const {
   verifyToken,
   verifyTokenAndAdmin,
   verifyTokenAndAuthorization,
-} from './verifyToken.js'
-import {
+} = require('./verifyToken.js')
+const {
   modifyUser,
   deleteUser,
   getUser,
   getUsers,
   getStats,
-} from '../controller/User.js'
-const router = express.Router()
+} = require('../controller/User.js')
+const router = require('express').Router()
 
 //edit user
 router.put('/:id', verifyTokenAndAuthorization, modifyUser)
@@ -28,4 +27,4 @@ router.get('/', verifyTokenAndAdmin, getUsers)
 // get user stars
 router.get('/stats', verifyTokenAndAdmin, getStats)
 
-export default router
+module.exports = router

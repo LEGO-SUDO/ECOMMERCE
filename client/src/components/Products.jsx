@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useLayoutEffect, useState } from 'react'
 import styled from 'styled-components'
 import { popularProducts } from '../data'
 import Product from './Product'

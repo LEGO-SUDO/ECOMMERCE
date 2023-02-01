@@ -1,7 +1,6 @@
-import Cart from '../models/Cart.js'
-import bcrypt from 'bcryptjs'
+const Cart = require('../models/Cart.js')
 
-export const createCart = async (req, res, next) => {
+const createCart = async (req, res, next) => {
   const newCart = new Cart(req.body)
   try {
     const savedCart = await newCart.save()
@@ -10,7 +9,7 @@ export const createCart = async (req, res, next) => {
     res.status(500).json(err)
   }
 }
-export const updateCart = async (req, res, next) => {
+const updateCart = async (req, res, next) => {
   try {
     const updatedCart = await Cart.findByIdAndUpdate(
       req.params.id,
@@ -25,7 +24,7 @@ export const updateCart = async (req, res, next) => {
   }
 }
 
-export const getCart = async (req, res, next) => {
+const getCart = async (req, res, next) => {
   try {
     const cart = await Cart.findOne({ userId: req.params.userId })
 
@@ -35,7 +34,7 @@ export const getCart = async (req, res, next) => {
   }
 }
 
-export const deleteCart = async (req, res, next) => {
+const deleteCart = async (req, res, next) => {
   try {
     await Cart.findByIdAndDelete(req.params.id)
     res.status(200).json('Cart has been deleted!')
@@ -44,7 +43,7 @@ export const deleteCart = async (req, res, next) => {
   }
 }
 
-export const getAllCart = async (req, res) => {
+const getAllCart = async (req, res) => {
   try {
     const carts = await Cart.find()
     res.status(200).json(carts)
@@ -52,3 +51,4 @@ export const getAllCart = async (req, res) => {
     res.status(500).json(err)
   }
 }
+module.exports = { createCart, deleteCart, getCart, getAllCart, updateCart }

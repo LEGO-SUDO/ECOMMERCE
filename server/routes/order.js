@@ -1,19 +1,18 @@
-import express from 'express'
-import {
+const {
   createOrder,
   updateOrder,
   deleteOrder,
   getOrder,
   getAllOrder,
   getStats,
-} from '../controller/order.js'
-import {
+} = require('../controller/order.js')
+const {
   verifyTokenAndAdmin,
   verifyToken,
   verifyTokenAndAuthorization,
-} from './verifyToken.js'
+} = require('./verifyToken.js')
 
-const router = express.Router()
+const router = require('express').Router()
 
 //Create order
 router.post('/new', verifyToken, createOrder)
@@ -33,4 +32,4 @@ router.get('/', verifyTokenAndAdmin, getAllOrder)
 // income
 router.get('/income', verifyTokenAndAdmin, getStats)
 
-export default router
+module.exports = router

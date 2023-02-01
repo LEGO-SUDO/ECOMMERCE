@@ -1,14 +1,13 @@
-import express from 'express'
-import {
+const {
   createProduct,
   updateProduct,
   getAllProducts,
   deleteProduct,
   getProduct,
-} from '../controller/product.js'
-import { verifyTokenAndAdmin } from './verifyToken.js'
+} = require('../controller/product.js')
+const { verifyTokenAndAdmin } = require('./verifyToken.js')
 
-const router = express.Router()
+const router = require('express').Router()
 
 //Create product
 router.post('/new', verifyTokenAndAdmin, createProduct)
@@ -24,4 +23,5 @@ router.get('/find/:id', getProduct)
 
 // get all products
 router.get('/', getAllProducts)
-export default router
+
+module.exports = router

@@ -1,18 +1,17 @@
-import express from 'express'
-import {
+const {
   createCart,
   updateCart,
   deleteCart,
   getCart,
   getAllCart,
-} from '../controller/cart.js'
-import {
-  verifyTokenAndAdmin,
+} = require('../controller/cart.js')
+const {
   verifyToken,
   verifyTokenAndAuthorization,
-} from './verifyToken.js'
+  verifyTokenAndAdmin,
+} = require('./verifyToken')
 
-const router = express.Router()
+const router = require('express').Router()
 
 //Create Cart
 router.post('/new', verifyToken, createCart)
@@ -29,4 +28,4 @@ router.get('/find/:userId', verifyTokenAndAuthorization, getCart)
 // get all cart
 router.get('/', verifyTokenAndAdmin, getAllCart)
 
-export default router
+module.exports = router

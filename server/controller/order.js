@@ -1,6 +1,6 @@
-import Order from '../models/Order.js'
+const Order = require('../models/Order.js')
 
-export const createOrder = async (req, res, next) => {
+const createOrder = async (req, res, next) => {
   const newOrder = new Order(req.body)
   try {
     const savedOrder = await newOrder.save()
@@ -9,7 +9,7 @@ export const createOrder = async (req, res, next) => {
     res.status(500).json(err)
   }
 }
-export const updateOrder = async (req, res, next) => {
+const updateOrder = async (req, res, next) => {
   try {
     const updatedOrder = await Order.findByIdAndUpdate(
       req.params.id,
@@ -24,7 +24,7 @@ export const updateOrder = async (req, res, next) => {
   }
 }
 
-export const getOrder = async (req, res, next) => {
+const getOrder = async (req, res, next) => {
   try {
     const Order = await Order.findById(req.params.id)
 
@@ -34,7 +34,7 @@ export const getOrder = async (req, res, next) => {
   }
 }
 
-export const getAllOrder = async (req, res, next) => {
+const getAllOrder = async (req, res, next) => {
   const qNew = req.query.new
   const qCategory = req.query.category
 
@@ -58,7 +58,7 @@ export const getAllOrder = async (req, res, next) => {
   }
 }
 
-export const deleteOrder = async (req, res, next) => {
+const deleteOrder = async (req, res, next) => {
   try {
     await Order.findByIdAndDelete(req.params.id)
     res.status(200).json('Order has been deleted!')
@@ -66,7 +66,7 @@ export const deleteOrder = async (req, res, next) => {
     res.status(500).json(err)
   }
 }
-export const getStats = async (req, res, next) => {
+const getStats = async (req, res, next) => {
   const date = new Date()
   const lastMonth = new Date(date.setMonth(date.getMonth() - 1))
   const previousMonth = new Date(new Date().setMonth(lastMonth.getMonth() - 1))
@@ -91,4 +91,12 @@ export const getStats = async (req, res, next) => {
   } catch (err) {
     res.status(500).json(err)
   }
+}
+module.exports = {
+  createOrder,
+  deleteOrder,
+  getOrder,
+  getAllOrder,
+  getStats,
+  updateOrder,
 }

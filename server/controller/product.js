@@ -1,7 +1,6 @@
-import Product from '../models/Product.js'
-import bcrypt from 'bcryptjs'
+const Product = require('../models/Product.js')
 
-export const createProduct = async (req, res, next) => {
+const createProduct = async (req, res, next) => {
   const newProduct = new Product(req.body)
   try {
     const savedProduct = await newProduct.save()
@@ -10,7 +9,7 @@ export const createProduct = async (req, res, next) => {
     res.status(500).json(err)
   }
 }
-export const updateProduct = async (req, res, next) => {
+const updateProduct = async (req, res, next) => {
   try {
     const updatedProduct = await Product.findByIdAndUpdate(
       req.params.id,
@@ -25,7 +24,7 @@ export const updateProduct = async (req, res, next) => {
   }
 }
 
-export const getProduct = async (req, res, next) => {
+const getProduct = async (req, res, next) => {
   try {
     const product = await Product.findById(req.params.id)
 
@@ -35,7 +34,7 @@ export const getProduct = async (req, res, next) => {
   }
 }
 
-export const getAllProducts = async (req, res, next) => {
+const getAllProducts = async (req, res, next) => {
   const qNew = req.query.new
   const qCategory = req.query.category
 
@@ -59,11 +58,19 @@ export const getAllProducts = async (req, res, next) => {
   }
 }
 
-export const deleteProduct = async (req, res, next) => {
+const deleteProduct = async (req, res, next) => {
   try {
     await Product.findByIdAndDelete(req.params.id)
     res.status(200).json('Product has been deleted!')
   } catch (err) {
     res.status(500).json(err)
   }
+}
+
+module.exports = {
+  createProduct,
+  deleteProduct,
+  getProduct,
+  getAllProducts,
+  updateProduct,
 }

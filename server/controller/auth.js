@@ -1,9 +1,9 @@
-import { createError } from '../error.js'
-import User from '../models/User.js'
-import bcrypt from 'bcryptjs'
-import jwt from 'jsonwebtoken'
+const { createError } = require('../error.js')
+const User = require('../models/User.js')
+const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
 
-export const addUser = async (req, res, next) => {
+const addUser = async (req, res, next) => {
   try {
     const salt = bcrypt.genSaltSync(10)
     const hash = bcrypt.hashSync(req.body.password, salt)
@@ -14,7 +14,7 @@ export const addUser = async (req, res, next) => {
     next(err)
   }
 }
-export const loginUser = async (req, res, next) => {
+const loginUser = async (req, res, next) => {
   try {
     const user = await User.findOne({ name: req.body.name })
     if (!user) return next(createError(404, 'No user found'))
@@ -36,3 +36,4 @@ export const loginUser = async (req, res, next) => {
     next(err)
   }
 }
+module.exports = { addUser, loginUser }
